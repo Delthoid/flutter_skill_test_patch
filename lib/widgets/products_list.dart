@@ -28,7 +28,7 @@ class _ProductsListState extends ConsumerState<ProductsList> {
     } else if (state.priceSort == PriceSort.highToLow) {
       sortedProducts.addAll(widget.products..sort((a, b) => b.price?.compareTo(a.price ?? 0) ?? 0));
     } else {
-      sortedProducts.addAll(widget.products);
+      sortedProducts.addAll(widget.products..sort((a, b) => a.id?.compareTo(b.id ?? 0) ?? 0));
     }
 
     return GridView.builder(

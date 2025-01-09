@@ -166,6 +166,10 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                                         label: Text(price.name),
                                         selected: ref.read(appStateNotifier).priceSort == price,
                                         onSelected: (selected) {
+                                          if (price == ref.read(appStateNotifier).priceSort) {
+                                            ref.read(appStateNotifier.notifier).setPriceSort(priceSort: null);
+                                            return;
+                                          }
                                           ref.read(appStateNotifier.notifier).setPriceSort(priceSort: price);
                                         },
                                         backgroundColor: ref.read(appStateNotifier).priceSort == price ? Colors.blue : Colors.grey[200],
