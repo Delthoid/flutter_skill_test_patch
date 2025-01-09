@@ -7,12 +7,12 @@ class APIService {
   //TODO: Fetch categories from FakeStore
   Future<List<Category>> fetchCategories() async {
     //Just for simulating delay :)
-    await Future.delayed(Duration(seconds: 100));
+    await Future.delayed(Duration(seconds: 2));
     return [
       Category(name: 'Electronics', imagePath: 'assets/images/electronics.jpg'),
       Category(name: 'Jewelry', imagePath: 'assets/images/jewelry.jpg'),
       Category(name: "Men's Wear", imagePath: 'assets/images/mens_wear.jpg'),
-      Category(name: "Women's Wear", imagePath: 'assets/images/womens_wear.jpg')
+      Category(name: "Women's Wear", imagePath: 'assets/images/womens_wear.png')
     ];
   }
 
