@@ -169,7 +169,6 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            //Have a shimmer on this too while wating for products to load
                             Text('${snapshot.connectionState == ConnectionState.waiting ? '--' : snapshot.data?.length} products to choose from', style: theme.textTheme.titleMedium?.copyWith(fontSize: 18.0)),
 
                             Wrap(
