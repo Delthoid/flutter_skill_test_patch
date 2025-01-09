@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_skill_test_patch/model/product.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  const ProductCard({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +22,21 @@ class ProductCard extends StatelessWidget {
           Container(
             width: double.infinity,
             height: 180,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
+            ),
+            child: product.image == null ? const SizedBox.shrink() : CachedNetworkImage(
+              imageUrl: product.image ?? '',
+              progressIndicatorBuilder: (context, url, downloadProgress) => Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+              fit: BoxFit.contain,
             ),
           ),
           SizedBox(
             width: double.infinity,
             child: Text(
-              'Product Name',
+              product.title ?? '',
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -35,17 +45,18 @@ class ProductCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: Text(
-              //To simulate long description
-              'This is a sample of product description. So this is me swallowing my pride standing in front of you saying I am sorry for that night. And I go back to December all the time.',
+              product.description ?? '',
               style: TextStyle(fontSize: 10),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            child: Text('\$ 100.00', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
-          )
+
+          if (product.price != null)
+            SizedBox(
+              width: double.infinity,
+              child: Text('\$${product.price?.toStringAsFixed(2)}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+            )
         ],
       ),
     );

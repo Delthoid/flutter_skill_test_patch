@@ -41,7 +41,7 @@ class CategoryItem extends StatelessWidget {
                 height: 70,
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.white,
                   shape: BoxShape.circle,
                 ),
                 child: Material(
@@ -59,7 +59,7 @@ class CategoryItem extends StatelessWidget {
             ),
           ),
         ),
-        Text(category.name),
+        Text(category.name, style: TextStyle(fontSize: 12)),
       ],
     );
   }
