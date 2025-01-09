@@ -119,6 +119,14 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                                 category: category,
                                 isSelected: state.selectedCategory == category,
                                 onTap: () {
+                                  if (state.selectedCategory == category) {
+                                    ref.read(appStateNotifier.notifier).setCategory(category: null);
+                                    setState(() {
+                                      fetchProducts = ref.read(apiServiceProvider).fetchProducts(category: category.key);
+                                    });
+                                    return;
+                                  }
+
                                   ref.read(appStateNotifier.notifier).setCategory(category: category);
                                   setState(() {
                                     fetchProducts = ref.read(apiServiceProvider).fetchProducts(category: category.key);
