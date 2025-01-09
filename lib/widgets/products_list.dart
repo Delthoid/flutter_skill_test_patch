@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_skill_test_patch/data/app_state_data.dart';
+import 'package:flutter_skill_test_patch/enums.dart';
 import 'package:flutter_skill_test_patch/model/product.dart';
 import 'package:flutter_skill_test_patch/widgets/product_card.dart';
 import 'package:shimmer/shimmer.dart';
@@ -18,6 +20,17 @@ class _ProductsListState extends ConsumerState<ProductsList> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(appStateNotifier);
+    final sortedProducts = <Product>[];
+
+    if (state.priceSort == PriceSort.lowToHigh) {
+      sortedProducts.addAll(widget.products..sort((a, b) => a.price?.compareTo(b.price ?? 0) ?? 0));
+    } else if (state.priceSort == PriceSort.highToLow) {
+      sortedProducts.addAll(widget.products..sort((a, b) => b.price?.compareTo(a.price ?? 0) ?? 0));
+    } else {
+      sortedProducts.addAll(widget.products);
+    }
+
     return GridView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.zero,
@@ -28,7 +41,7 @@ class _ProductsListState extends ConsumerState<ProductsList> {
         mainAxisSpacing: 12,
         crossAxisSpacing: 12
       ),
-      itemCount: widget.isLoading ? 4 : widget.products.length,
+      itemCount: widget.isLoading ? 4 : sortedProducts.length,
       itemBuilder: (BuildContext context, int index) {
         if (widget.isLoading) {
           return Shimmer.fromColors(
@@ -38,7 +51,7 @@ class _ProductsListState extends ConsumerState<ProductsList> {
           );
         }
 
-        return ProductCard(product: widget.products[index]);
+        return ProductCard(product: sortedProducts[index]);
       },
     );
   }

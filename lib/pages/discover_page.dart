@@ -121,7 +121,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                                 onTap: () {
                                   ref.read(appStateNotifier.notifier).setCategory(category: category);
                                   setState(() {
-                                    fetchProducts = ref.read(apiServiceProvider).fetchProducts(category: category.key, priceSort: state.priceSort);
+                                    fetchProducts = ref.read(apiServiceProvider).fetchProducts(category: category.key);
                                   });
                                 },
                               );
@@ -141,7 +141,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                               children: [
                                 const Text('Failed to load products'),
                                 const SizedBox(height: 16),
-                                ElevatedButton(
+                                FilledButton(
                                   onPressed: () {
                                     setState(() {
                                       initFutures();
@@ -165,14 +165,8 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
 
                                         label: Text(price.name),
                                         selected: ref.read(appStateNotifier).priceSort == price,
-                                        onSelected: snapshot.connectionState == ConnectionState.waiting ? null : (selected) {
+                                        onSelected: (selected) {
                                           ref.read(appStateNotifier.notifier).setPriceSort(priceSort: price);
-                                          setState(() {
-                                            fetchProducts = ref.read(apiServiceProvider).fetchProducts(
-                                              category: ref.read(appStateNotifier).selectedCategory?.key,
-                                              priceSort: price,
-                                            );
-                                          });
                                         },
                                         backgroundColor: ref.read(appStateNotifier).priceSort == price ? Colors.blue : Colors.grey[200],
                                         labelStyle: ref.read(appStateNotifier).priceSort == price ? const TextStyle(color: Colors.white) : const TextStyle(color: Colors.black),

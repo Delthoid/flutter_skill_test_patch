@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_skill_test_patch/enums.dart';
 import 'package:flutter_skill_test_patch/model/catergory.dart';
 import 'package:flutter_skill_test_patch/model/product.dart';
 
@@ -54,7 +53,7 @@ class APIService {
     }
   }
 
-  Future<List<Product>> fetchProducts({String? category, PriceSort? priceSort}) async {
+  Future<List<Product>> fetchProducts({String? category}) async {
     try {
       final result = <Product>[];
 
@@ -75,18 +74,6 @@ class APIService {
         for (Map<String, dynamic> product in products) {
           result.add(Product.fromJson(product));
         }
-
-        //Sort by product price here since the API does not support sorting by price
-        if (priceSort != null) {
-          result.sort((a, b) {
-            if (priceSort == PriceSort.lowToHigh) {
-              return a.price!.compareTo(b.price!);
-            } else {
-              return b.price!.compareTo(a.price!);
-            }
-          });
-        }
-
         return result;
       } else {
         throw Exception('Failed to load products');
