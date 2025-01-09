@@ -139,6 +139,8 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                       },
                     ),
 
+                    const SizedBox(height: 12),
+
                     FutureBuilder(
                       future: fetchProducts,
                       builder: (context, snapshot) {
@@ -166,6 +168,10 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                           spacing: 8,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+
+                            //Have a shimmer on this too while wating for products to load
+                            Text('${snapshot.connectionState == ConnectionState.waiting ? '--' : snapshot.data?.length} products to choose from', style: theme.textTheme.titleMedium?.copyWith(fontSize: 18.0)),
+
                             Wrap(
                               spacing: 8,
                               children: PriceSort.values
