@@ -19,6 +19,7 @@ This project was built with **Flutter 3.27.1** and **Dart 3.6.0**.
 
 ### Important Note
 The FakeStore API may occasionally be unresponsive. If this happens, an error message with a retry button will appear in the app.
+https://github.com/keikaavousi/fake-store-api/issues/50
 
 ### Steps
 
