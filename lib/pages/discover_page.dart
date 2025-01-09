@@ -122,7 +122,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                                   if (state.selectedCategory == category) {
                                     ref.read(appStateNotifier.notifier).setCategory(category: null);
                                     setState(() {
-                                      fetchProducts = ref.read(apiServiceProvider).fetchProducts(category: category.key);
+                                      fetchProducts = ref.read(apiServiceProvider).fetchProducts(category: null);
                                     });
                                     return;
                                   }
@@ -149,7 +149,7 @@ class _DiscoverPageState extends ConsumerState<DiscoverPage> {
                               children: [
                                 const Text('Failed to load products'),
                                 const SizedBox(height: 16),
-                                FilledButton(
+                                FilledButton.tonal(
                                   onPressed: () {
                                     setState(() {
                                       initFutures();
